@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-  	"planCostShares": {
+    "planCostShares": {
       "type": "object",
       "properties": {
         "deductible": {
@@ -31,79 +31,98 @@
     },
     "linkedPlanServices": {
       "type": "array",
-      "items": [
-        {
-          "type": "object",
-          "properties": {
-            "linkedService": {
-              "type": "object",
-              "properties": {
-                "_org": {
-                  "type": "string"
-                },
-                "objectId": {
-                  "type": "string"
-                },
-                "objectType": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
+      "items": {
+        "type": "object",
+        "properties": {
+          "linkedService": {
+            "type": "object",
+            "properties": {
+              "_org": {
+                "type": "string",
+                "enum": [
+                  "example.com"
+                ]
               },
-              "required": [
-                "_org",
-                "objectId",
-                "objectType",
-                "name"
-              ]
-            },
-            "planserviceCostShares": {
-              "type": "object",
-              "properties": {
-                "deductible": {
-                  "type": "integer"
-                },
-                "_org": {
-                  "type": "string"
-                },
-                "copay": {
-                  "type": "integer"
-                },
-                "objectId": {
-                  "type": "string"
-                },
-                "objectType": {
-                  "type": "string"
-                }
+              "objectId": {
+                "type": "string"
               },
-              "required": [
-                "deductible",
-                "_org",
-                "copay",
-                "objectId",
-                "objectType"
-              ]
+              "objectType": {
+                "type": "string",
+                "enum": [
+                  "service"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
             },
-            "_org": {
-              "type": "string"
-            },
-            "objectId": {
-              "type": "string"
-            },
-            "objectType": {
-              "type": "string"
-            }
+            "required": [
+              "_org",
+              "objectId",
+              "objectType",
+              "name"
+            ]
           },
-          "required": [
-            "linkedService",
-            "planserviceCostShares",
-            "_org",
-            "objectId",
-            "objectType"
-          ]
-        }
-      ]
+          "planserviceCostShares": {
+            "type": "object",
+            "properties": {
+              "deductible": {
+                "type": "integer",
+                "enum": [
+                  10
+                ]
+              },
+              "_org": {
+                "type": "string",
+                "enum": [
+                  "example.com"
+                ]
+              },
+              "copay": {
+                "type": "integer"
+              },
+              "objectId": {
+                "type": "string"
+              },
+              "objectType": {
+                "type": "string",
+                "enum": [
+                  "membercostshare"
+                ]
+              }
+            },
+            "required": [
+              "deductible",
+              "_org",
+              "copay",
+              "objectId",
+              "objectType"
+            ]
+          },
+          "_org": {
+            "type": "string",
+            "enum": [
+              "example.com"
+            ]
+          },
+          "objectId": {
+            "type": "string"
+          },
+          "objectType": {
+            "type": "string",
+            "enum": [
+              "planservice"
+            ]
+          }
+        },
+        "required": [
+          "linkedService",
+          "planserviceCostShares",
+          "_org",
+          "objectId",
+          "objectType"
+        ]
+      }
     },
     "_org": {
       "type": "string"
@@ -130,4 +149,4 @@
     "planType",
     "creationDate"
   ]
-} 
+}
