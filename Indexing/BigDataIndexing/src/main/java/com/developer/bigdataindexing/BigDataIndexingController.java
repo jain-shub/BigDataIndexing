@@ -54,7 +54,7 @@ public class BigDataIndexingController {
 			}
 			else {
 				eTag = eTagGen(product);
-				json = product;
+				json = "{message: 'Plan already exists!}";
 			}
 
 			if(jsonValidator(plan)) {
