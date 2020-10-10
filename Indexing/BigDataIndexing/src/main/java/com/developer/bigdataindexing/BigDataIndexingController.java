@@ -56,14 +56,16 @@ public class BigDataIndexingController {
 			else {
 				eTag = eTagGen(product);
 				json = "{message: 'Plan already exists!}";
+				return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+						.eTag(eTag)
+						.body(json);
 			}
 
 			if(jsonValidator(plan)) {
 				jedis.set(type+"/"+id, plan);
 				jedis.set(hashedKey, eTag);
 			} else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).
-						body("{'message':'Validation Failed'}");
+				throw new ProcessingException("{message : 'JSON validation failed due to missing/incorrect fields!'}");
 			}
 
 		} catch (IOException e) {
