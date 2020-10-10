@@ -48,6 +48,7 @@ public class BigDataIndexingController {
 			String type = jObj.getString("objectType");
 			String id = jObj.getString("objectId");
 			String product = jedis.get(type+"/"+id);
+			String hashedKey = type+"/"+id+"/hashed";
 			if(product==null) {
 				eTag = eTagGen(plan);
 				json = plan;
@@ -59,6 +60,7 @@ public class BigDataIndexingController {
 
 			if(jsonValidator(plan)) {
 				jedis.set(type+"/"+id, plan);
+				jedis.set(hashedKey, eTag);
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).
 						body("{'message':'Validation Failed'}");
@@ -137,7 +139,8 @@ public class BigDataIndexingController {
 						.body("{'message':'No entry found for provided key, it has either been deleted or updated'}");
 			}
 			else {
-				eTag = eTagGen(product);	
+//				eTag = eTagGen(product);
+				eTag = jedis.get(type+"/"+id+"/hashed");
 				if(!headers.equals(eTag)) {
 					json = "{'message': 'Plan provided not already present in database!'}";
 					return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
@@ -168,7 +171,8 @@ public class BigDataIndexingController {
 						.body("{'message':'No entry found for provided key, it has either been deleted or updated'}");
 			}
 			else {
-				eTag = eTagGen(product);	
+//				eTag = eTagGen(product);	
+				eTag = jedis.get(type+"/"+id+"/hashed");
 				if(headers.equals(eTag)) {					
 					json = "{'message': 'Plan provided is already present in database!'}";
 
@@ -200,7 +204,8 @@ public class BigDataIndexingController {
 						.body("{'message':'No entry found for provided key, it has either been deleted or updated'}");
 			}
 			else {
-				eTag = eTagGen(product);	
+//				eTag = eTagGen(product);	
+				eTag = jedis.get(type+"/"+id+"/hashed");
 				json = product;			
 			}
 			return ResponseEntity.status(HttpStatus.OK)
@@ -223,6 +228,7 @@ public class BigDataIndexingController {
 			}
 			else {
 				jedis.del(type+"/"+id);
+				jedis.del(type+"/"+id+"/hashed");
 			}			
 		}
 		return ResponseEntity.status(HttpStatus.OK).body("{message: Object deleted successfully!}");
