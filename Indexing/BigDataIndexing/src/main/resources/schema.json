@@ -38,19 +38,13 @@
             "type": "object",
             "properties": {
               "_org": {
-                "type": "string",
-                "enum": [
-                  "example.com"
-                ]
+                "type": "string"                
               },
               "objectId": {
                 "type": "string"
               },
               "objectType": {
-                "type": "string",
-                "enum": [
-                  "service"
-                ]
+                "type": "string"
               },
               "name": {
                 "type": "string"
@@ -67,16 +61,10 @@
             "type": "object",
             "properties": {
               "deductible": {
-                "type": "integer",
-                "enum": [
-                  10
-                ]
+                "type": "integer"
               },
               "_org": {
-                "type": "string",
-                "enum": [
-                  "example.com"
-                ]
+                "type": "string"
               },
               "copay": {
                 "type": "integer"
@@ -85,10 +73,7 @@
                 "type": "string"
               },
               "objectType": {
-                "type": "string",
-                "enum": [
-                  "membercostshare"
-                ]
+                "type": "string"
               }
             },
             "required": [
@@ -100,19 +85,13 @@
             ]
           },
           "_org": {
-            "type": "string",
-            "enum": [
-              "example.com"
-            ]
+            "type": "string"
           },
           "objectId": {
             "type": "string"
           },
           "objectType": {
-            "type": "string",
-            "enum": [
-              "planservice"
-            ]
+            "type": "string"
           }
         },
         "required": [
